@@ -31,3 +31,6 @@ You need to have the directory and proper permissions for the socket file. Set t
 ### Static Files
 
 TODO
+
+    sudo chown -R www-data:www-data <PROJECT_DIRECTORY>/staticfiles
+    sudo chmod -R 755 <PROJECT_DIRECTORY>/staticfiles
