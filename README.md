@@ -35,7 +35,7 @@ TODO
 #### Commands for the Server
 
     ./manage.py collectstatic
-    sudo chown -R www-data:www-data <PROJECT_DIRECTORY>/static/
+    sudo chown -R www-data:www-data <PROJECT_DIRECTORY>/staticfiles/
     sudo chmod -R 755 <PROJECT_DIRECTORY>/staticfiles
     sudo chmod 755 <PROJECT_PARENT_DIRECTORY>/
     sudo chmod 755 <PROJECT_DIRECTORY>/
