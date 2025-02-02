@@ -1,0 +1,30 @@
+name: Polls
+on: [push]
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: push repo via scp
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          source: "."
+          target: ${{ secrets.APP_DIRECTORY }}
+      - name: update requirements and migrate database via ssh
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+            host: ${{ secrets.SERVER_IP }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.PRIVATE_KEY }}
+            port: 22
+            script: | 
+              cd ${{ secrets.APP_DIRECTORY }}
+              source .venv/bin/activate
+              pip install -r requirements.txt
+              ./manage.py migrate
+              deactivate
