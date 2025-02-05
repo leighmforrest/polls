@@ -29,3 +29,13 @@ jobs:
               ./manage.py migrate
               python manage.py collectstatic --noinput
               deactivate
+      - name: update requirements and migrate database via ssh
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+            host: ${{ secrets.SERVER_IP }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.PRIVATE_KEY }}
+            port: 22
+            script: | 
+              echo ${{ secrets.SUDO_PASSWORD }} | sudo -S  supervisorctl restart polls
+
