@@ -27,9 +27,9 @@ jobs:
               source .venv/bin/activate
               pip install -r requirements.txt
               ./manage.py migrate
-              python manage.py collectstatic --noinput
+              python manage.py collectstatic --noinput --clear
               deactivate
-      - name: update requirements and migrate database via ssh
+      - name: Restart gunicorn with supervisor via ssh
         uses: appleboy/ssh-action@v0.1.7
         with:
             host: ${{ secrets.SERVER_IP }}
@@ -37,5 +37,8 @@ jobs:
             key: ${{ secrets.PRIVATE_KEY }}
             port: 22
             script: | 
-              echo ${{ secrets.SUDO_PASSWORD }} | sudo -S  supervisorctl restart polls
+              echo ${{ secrets.SUDO_PASSWORD }} | sudo -S supervisorctl reread
+              echo ${{ secrets.SUDO_PASSWORD }} | sudo -S supervisorctl update
+              echo ${{ secrets.SUDO_PASSWORD }} | sudo -S supervisorctl restart polls
+
 
