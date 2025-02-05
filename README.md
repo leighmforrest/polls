@@ -18,7 +18,7 @@ This repo is set up to deploy the application with one command: `git push`. Gith
 
 ### Artifacts
 
-In the repo, there are generic files used to set up the Supervisor daemon to run gunicorn `gunicorn.conf` and the nginx configuration file: `nginx.conf` Both are set up to run a socket file in `/run` directory.
+In the repo, there are generic files in the `artifacts` directory used to set up the Supervisor daemon to run gunicorn `gunicorn.conf` and the nginx configuration file: `nginx.conf` Both are set up to run a socket file in `/run` directory.
 
 ### Permissions for Socket File
 
@@ -34,9 +34,9 @@ TODO
 
 #### Commands for the Server
 
-    ./manage.py collectstatic
-    sudo chown -R www-data:www-data <PROJECT_DIRECTORY>/staticfiles/
-    sudo chmod -R 755 <PROJECT_DIRECTORY>/staticfiles
-    sudo chmod 755 <PROJECT_PARENT_DIRECTORY>/
-    sudo chmod 755 <PROJECT_DIRECTORY>/
+    ./manage.py collectstatic # do this before setting permissions
+    sudo chown -R <APP_USER>:www-data <APP_DIRECTORY>/staticfiles/
+    sudo chmod -R 775 <APP_DIRECTORY>/staticfiles/
+    sudo usermod -aG www-data <APP_USER> # Add APP_USER to www-data
+
 

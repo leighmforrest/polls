@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # Local apps
     "polls.apps.PollsConfig",
+    "accounts.apps.AccountsConfig"
 ]
 
 MIDDLEWARE = [
@@ -115,3 +116,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+AUTH_USER_MODEL = "accounts.CustomUser"
